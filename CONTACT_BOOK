@@ -1,0 +1,85 @@
+# Contact Book Program
+
+contacts = {}
+
+def show_menu():
+    print("\n===== CONTACT BOOK MENU =====")
+    print("1. Add Contact")
+    print("2. View All Contacts")
+    print("3. Search Contact")
+    print("4. Update Contact")
+    print("5. Delete Contact")
+    print("6. Exit")
+
+def add_contact():
+    name = input("\nEnter contact name: ").title()
+    phone = input("Enter phone number: ")
+    email = input("Enter email address: ")
+    
+    contacts[name] = {"Phone": phone, "Email": email}
+    print(f"✅ Contact '{name}' added successfully!")
+
+def view_contacts():
+    if not contacts:
+        print("\nNo contacts found.")
+    else:
+        print("\n===== All Contacts =====")
+        for name, info in contacts.items():
+            print(f"\nName: {name}")
+            print(f"Phone: {info['Phone']}")
+            print(f"Email: {info['Email']}")
+
+def search_contact():
+    name = input("\nEnter the name to search: ").title()
+    if name in contacts:
+        print(f"\n📇 Contact found: ")
+        print(f"Name: {name}")
+        print(f"Phone: {contacts[name]['Phone']}")
+        print(f"Email: {contacts[name]['Email']}")
+    else:
+        print("⚠️ Contact not found.")
+
+def update_contact():
+    name = input("\nEnter the name to update: ").title()
+    if name in contacts:
+        print(f"\nCurrent Info: {contacts[name]}")
+        phone = input("Enter new phone number (leave blank to keep existing): ")
+        email = input("Enter new email (leave blank to keep existing): ")
+        
+        if phone:
+            contacts[name]['Phone'] = phone
+        if email:
+            contacts[name]['Email'] = email
+        
+        print(f"🔁 Contact '{name}' updated successfully!")
+    else:
+        print("⚠️ Contact not found.")
+
+def delete_contact():
+    name = input("\nEnter the name to delete: ").title()
+    if name in contacts:
+        del contacts[name]
+        print(f"🗑️ Contact '{name}' deleted successfully!")
+    else:
+        print("⚠️ Contact not found.")
+
+# Main program loop
+while True:
+    show_menu()
+    choice = input("\nEnter your choice (1-6): ")
+
+    if choice == '1':
+        add_contact()
+    elif choice == '2':
+        view_contacts()
+    elif choice == '3':
+        search_contact()
+    elif choice == '4':
+        update_contact()
+    elif choice == '5':
+        delete_contact()
+    elif choice == '6':
+        print("\n👋 Exiting Contact Book. Goodbye!")
+        break
+    else:
+        print("⚠️ Invalid choice! Please choose a valid option.")
